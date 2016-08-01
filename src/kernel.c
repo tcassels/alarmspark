@@ -10,5 +10,5 @@ void kmain(void) {
 	sleep(1);
 	printk("Kernel Loaded, begin driver init");
 	sleep(10);
-    printk("Driver init failed, no drivers dummy");
+	printk("Driver init failed, no drivers dummy");
 }
