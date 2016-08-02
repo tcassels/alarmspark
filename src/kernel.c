@@ -10,7 +10,7 @@ void kmain(void) {
 	clear_screen();
 	printk("Loading Kernel.....Standby\n");
 	printk("\n");
-	for (i=0; i<10; ++i) {
+	for (i=0; i<10; i++) {
 		//sleep(1);
 		printk("..\n");
 	}

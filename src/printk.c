@@ -3,7 +3,7 @@ int line = 0; // Used to control which line we're on
 int i = 0;    // Line char position persistence
 
 void terminal_scroll() {
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 25; i++) {
         for (int m = 0; m < 80; ++m) {
             vidptr[i*80+m] = vidptr[(i+1)*80+m];
         }
@@ -19,7 +19,7 @@ void printk(char *str) {
     for (int j = 0; j < len; j++) {
         switch (str[j]) {
             case '\n':
-                ++line;
+                line++;
                 i = (line*80*2);
             default:
                 vidptr[i] = str[j];
