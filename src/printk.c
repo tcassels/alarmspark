@@ -15,20 +15,16 @@ void printk(char *str) {
         terminal_scroll();
     }
     int j = 0; // Specifies which item in the *str char array
-    while (str[j] != '\0') {
+    int len = strlen(str);
+    for (int j = 0; j < len; j++) {
         switch (str[j]) {
             case '\n':
-                /*if (line == 24) {
-                    terminal_scroll();
-                } else {*/
-                    ++line;
-                    i = (line*80*2);
-                /*}*/
+                ++line;
+                i = (line*80*2);
             default:
                 vidptr[i] = str[j];
                 vidptr[i+1] = 0x07;
                 i = i + 2;
-                ++j;
         }
     }
 }
