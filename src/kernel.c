@@ -9,9 +9,9 @@ void kmain(void) {
 
 	clear_screen();
 	printk("Loading Kernel.....Standby\n");
-	for (i=0; i<10; ++i) {
-		sleep(1);
-		printk("..");
+	for (i=0; i<25; ++i) {
+		//sleep(1);
+		printk("..\n");
 	}
 	printk("Kernel Loaded, begin driver init\n");
 	printk("Driver init failed, no drivers dummy\n");
