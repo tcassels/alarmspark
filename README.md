@@ -10,7 +10,7 @@
 
 ## building
 
-> All compiled files will be in the build direcory. Build sits at the same level as src and doc.
+> All compiled files will be in the build directory. Build sits at the same level as src and doc.
 > The following makefile options are supported.
 > * clean
 > * all
