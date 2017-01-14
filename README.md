@@ -4,6 +4,8 @@
 
 > alarmspark is a homebrew kernel written in C and assembly with the intention of learning more about how the system works at a lower level than conventional programming.  alarmspark is licensed as GPLv2 so please hack it.  Currently it's only real "feature" is a semi functional prink() function used to print to the screen along with some general support for terminal scrolling.
 
+> This is an ever evolving project so be sure to check the next branch to see what's coming up.
+
 ## Hacking
 
 > Please do! Tell me what I did wrong and how I can improve it. Patches are appreciated but not expected.
