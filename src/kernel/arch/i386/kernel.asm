@@ -16,7 +16,7 @@
 ;59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
-global start
+global START
 extern kmain                 ; kmain is defined in the c file
 
 bits 32
@@ -28,7 +28,7 @@ section .text
 	dd 0x00                  ; flags
 	dd - (0x1BADB002 + 0x00) ; checksum
 
-start:
+START:
 	cli                      ; block interrupts
 	mov esp, stack_space     ; set stack pointer
 	call kmain               ; Call our C code

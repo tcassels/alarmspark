@@ -17,6 +17,8 @@
 *59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+int strlen(char *str);
+
 char *vidptr = (char*)0xb8000;
 int line = 0; // Used to control which line we're on
 int linechar = 0;

@@ -16,49 +16,56 @@
 #59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
-arch ?= x86_64
-kernel := build/alarmspark-$(arch).bin
-iso := build/alarmspark-$(arch).iso
-
-linker_script := src/kernel/arch/$(arch)/linker.ld
+NAME := alarmspark
+VER := 0.0.0
+ARCH := i386
+BINTARGET := bin/$(NAME)-$(VER)-$(ARCH).bin
+ISOTARGET := bin/$(NAME)-$(VER)-$(ARCH).iso
+CC := gcc
+CFLAGS :=
+LIB :=
+INC :=
+linker_script := src/kernel/arch/$(ARCH)/linker.ld
 grub_cfg := src/grub/grub.cfg
-assembly_source_files := $(wildcard src/kernel/arch/$(arch)/*.asm)
-assembly_object_files := $(patsubst src/kernel/arch/$(arch)/%.asm, \
-                                    build/kernel/arch/$(arch)/%.o, \
-                                    $(assembly_source_files))
 
-c_source_files := $(wildcard src/kernel/*.c)
-c_object_files := $(patsubst src/kernel/%.c, build/kernel/%.o, $(c_source_files))
+SRCDIR := src
+BUILDDIR := build
+BINDIR := bin
+obj-y :=
 
+include $(SRCDIR)/kernel/Makefile
 
-.PHONY: all clean runk
+obj := $(patsubst src/%.c,build/%.o,$(obj-y))
 
-all: $(kernel)
+runk: $(BINTARGET)
+	@qemu-system-x86_64 -kernel $(BINTARGET)
+
+runiso: $(ISOTARGET)
+	@qemu-system-x86_64 -cdrom $(ISOTARGET)
+
+iso: $(ISOTARGET)
+
+$(ISOTARGET): $(BINTARGET) $(grub_cfg)
+	@mkdir -p build/isofiles/boot/grub
+	@cp $(BINTARGET) build/isofiles/boot/alarmspark.bin
+	@cp $(grub_cfg) build/isofiles/boot/grub
+	@grub-mkrescue -o $(ISOTARGET) -d /usr/lib/grub/i386-pc build/isofiles
 
 clean:
-	@rm -r build
+	rm -R $(BUILDDIR) $(BINDIR)
 
-runk: $(kernel)
-	@qemu-system-x86_64 -kernel $(kernel)
+$(BINTARGET): $(obj) build/kernel/arch/$(ARCH)/kernel.o
+	@echo $(asmobj)
+	@mkdir -p $(BINDIR)
+	@echo " Linking..."
+	@ld -n -m elf_i386 -T $(linker_script) -o $(BINTARGET) build/kernel/arch/$(ARCH)/kernel.o $(obj)
 
-runiso: $(iso)
-	@qemu-system-x86_64 -cdrom $(iso)
+build/kernel/arch/$(ARCH)/kernel.o: src/kernel/arch/$(ARCH)/kernel.asm
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(@D)
+	@nasm -f elf32 -o build/kernel/arch/$(ARCH)/kernel.o src/kernel/arch/$(ARCH)/kernel.asm
 
-iso: $(iso)
-
-$(iso): $(kernel) $(grub_cfg)
-	@mkdir -p build/isofiles/boot/grub
-	@cp $(kernel) build/isofiles/boot/alarmspark.bin
-	@cp $(grub_cfg) build/isofiles/boot/grub
-	@grub-mkrescue -o $(iso) -d /usr/lib/grub/i386-pc build/isofiles
-
-$(kernel): $(assembly_object_files) $(c_object_files) $(linker_script)
-	@ld --verbose -n -m elf_i386 -T $(linker_script) -o $(kernel) $(assembly_object_files) $(c_object_files)
-
-build/kernel/arch/$(arch)/%.o: src/kernel/arch/$(arch)/%.asm
-	@mkdir -p $(shell dirname $@)
-	@nasm -f elf32 $< -o $@
-
-build/kernel/%.o: src/kernel/%.c
-	@mkdir -p $(shell dirname $@)
-	gcc -v -m32 -c $< -o $@
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c -m32 -o $@ $<

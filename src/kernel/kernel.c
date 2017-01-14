@@ -25,7 +25,7 @@ void kmain(void) {
 	int i = 0; // Kernel loading counter
 
 	clear_screen();
-	sleep(10);
+	//sleep(10);
 	printk("Kernel Loaded\n");
 	printk("Line 2\n");
 	printk("Line 3\n");
