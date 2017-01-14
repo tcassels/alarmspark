@@ -22,8 +22,8 @@ int line = 0; // Used to control which line we're on
 int linechar = 0;
 
 void clear_line(int l) {
-    for (int c = 0; c < 80; c++) {
-        vidptr[l*80*2+c] = " ";
+    for (int c = 0; c < 160; c++) {
+        vidptr[(l*160)+(c)] = " ";
         c++;
     }
 }
@@ -31,10 +31,10 @@ void clear_line(int l) {
 void terminal_scroll() {
     for (int i = 0; i < 25; i++) {
         for (int m = 0; m < 80; m++) {
-            vidptr[i*80*2+m] = vidptr[(i+1)*80*2+m];
+            vidptr[i*160+m] = vidptr[(i+1)*160+m];
         }
     }
-    clear_line(25);
+    //clear_line(25);
 }
 
 void printk(char *str) {
@@ -48,7 +48,7 @@ void printk(char *str) {
                 } else {
                     terminal_scroll();
                 }
-                linechar = (line*80*2);
+                linechar = (line*160);
             case '\0':  // Work around so we don't print the very last item
                 break;
             default:
