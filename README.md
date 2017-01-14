@@ -2,7 +2,7 @@
 
 ## Introduction
 
-> alarmspark is a homebrew kernel written in C and assembly with the intention of learning more about how the system works at a lower level than conventional programming. alarmspark is licensed as GPLv2 so please hack it. Currently it's only real "feature" is a semi functional prink() function used to print to the screen along with some general support for terminal scrolling.
+> alarmspark is a homebrew kernel written in C and assembly with the intention of learning more about how the system works at a lower level than conventional programming.  alarmspark is licensed as GPLv2 so please hack it.  Currently it's only real "feature" is a semi functional prink() function used to print to the screen along with some general support for terminal scrolling.
 
 ## Hacking
 
@@ -10,7 +10,7 @@
 
 ## building
 
-> All compiled files will be in the build directory. Build sits at the same level as src and doc.
+> All compiled files will be in the build directory.  The final kernel binary and ISO is put in bin.  Build sits at the same level as src and doc.
 > The following makefile options are supported.
 > * clean
 > * all
@@ -20,4 +20,4 @@
 
 ## Installation
 
-> There is currently no "install", only a live CD environment that is built using "make iso". This kernel is multiboot compliant and uses unmodified Grub as the boot loader. It is also possible to install manually to a disk with grub installed. Just add an entry to your menu config to tell Grub where the kernel is after building. This option is not currently supported.
+> There is currently no "install", only a live CD environment that is built using "make iso".  This kernel is multiboot compliant and uses unmodified Grub as the boot loader. It is also possible to install manually to a disk with grub installed.  Just add an entry to your menu config to tell Grub where the kernel is after building.  This option is not currently supported.
