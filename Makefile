@@ -37,22 +37,6 @@ include $(SRCDIR)/kernel/Makefile
 
 obj := $(patsubst src/%.c,build/%.o,$(obj-y))
 
-runk: $(BINTARGET)
-	@qemu-system-x86_64 -kernel $(BINTARGET)
-
-runiso: $(ISOTARGET)
-	@qemu-system-x86_64 -cdrom $(ISOTARGET)
-
-iso: $(ISOTARGET)
-
-$(ISOTARGET): $(BINTARGET) $(grub_cfg)
-	@mkdir -p build/isofiles/boot/grub
-	@cp $(BINTARGET) build/isofiles/boot/alarmspark.bin
-	@cp $(grub_cfg) build/isofiles/boot/grub
-	@grub-mkrescue -o $(ISOTARGET) -d /usr/lib/grub/i386-pc build/isofiles
-
-clean:
-	rm -R $(BUILDDIR) $(BINDIR)
 
 $(BINTARGET): $(obj) build/kernel/arch/$(ARCH)/kernel.o
 	@echo $(asmobj)
@@ -69,3 +53,20 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c -m32 -o $@ $<
+
+runk: $(BINTARGET)
+	@qemu-system-x86_64 -kernel $(BINTARGET)
+
+runiso: $(ISOTARGET)
+	@qemu-system-x86_64 -cdrom $(ISOTARGET)
+
+iso: $(ISOTARGET)
+
+$(ISOTARGET): $(BINTARGET) $(grub_cfg)
+	@mkdir -p build/isofiles/boot/grub
+	@cp $(BINTARGET) build/isofiles/boot/alarmspark.bin
+	@cp $(grub_cfg) build/isofiles/boot/grub
+	@grub-mkrescue -o $(ISOTARGET) -d /usr/lib/grub/i386-pc build/isofiles
+
+clean:
+	rm -R $(BUILDDIR) $(BINDIR)
