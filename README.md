@@ -10,7 +10,7 @@
 
 ## Building
 
-> All compiled files will be in the build directory.  The final kernel binary and ISO is put in bin.  Build sits at the same level as src and doc.
+> All compiled files will be in the build directory.  The final kernel binary and ISO are put in bin.  Build sits at the same level as src and doc.
 > The following makefile options are supported.
 > * clean
 > * all
