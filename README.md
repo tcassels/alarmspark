@@ -8,7 +8,7 @@
 
 > Please do! Tell me what I did wrong and how I can improve it. Patches are appreciated but not expected.
 
-## building
+## Building
 
 > All compiled files will be in the build directory.  The final kernel binary and ISO is put in bin.  Build sits at the same level as src and doc.
 > The following makefile options are supported.
