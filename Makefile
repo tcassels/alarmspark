@@ -39,6 +39,7 @@ obj := $(patsubst src/%.c,build/%.o,$(obj-y))
 
 
 $(BINTARGET): $(obj) build/kernel/arch/$(ARCH)/kernel.o
+	@echo $(obj-y)
 	@mkdir -p $(BINDIR)
 	@echo " Linking..."
 	@ld -n -m elf_i386 -T $(linker_script) -o $(BINTARGET) build/kernel/arch/$(ARCH)/kernel.o $(obj)

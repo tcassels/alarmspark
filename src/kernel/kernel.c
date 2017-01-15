@@ -20,13 +20,19 @@
 #include "functions/printk.h"
 #include "functions/clear_screen.h"
 #include "functions/sleep.h"
+#include "drivers/keyboard/8042.h"
 
 void kmain(void) {
 	int i = 0; // Kernel loading counter
 
 	clear_screen();
-	//sleep(10);
 	printk("Kernel Loaded\n");
+
+	identify_ps2();
+	printk("PS2 ident complete\n");
+
+	/* This section used to test scrolling
+	sleep(10);
 	printk("Line 2\n");
 	printk("Line 3\n");
 	printk("Line 4\n");
@@ -63,7 +69,7 @@ void kmain(void) {
 	sleep(1);
 	printk("Line 29\n");
 	sleep(1);
-	printk("Line 30\n");
+	printk("Line 30\n");*/
 	sleep(1);
 	printk("hlt\n");
 }
