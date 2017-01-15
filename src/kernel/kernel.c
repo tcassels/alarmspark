@@ -17,9 +17,9 @@
 *59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-void sleep(int time);
-void printk(char *str);
-void clear_screen();
+#include "functions/printk.h"
+#include "functions/clear_screen.h"
+#include "functions/sleep.h"
 
 void kmain(void) {
 	int i = 0; // Kernel loading counter

@@ -39,7 +39,6 @@ obj := $(patsubst src/%.c,build/%.o,$(obj-y))
 
 
 $(BINTARGET): $(obj) build/kernel/arch/$(ARCH)/kernel.o
-	@echo $(asmobj)
 	@mkdir -p $(BINDIR)
 	@echo " Linking..."
 	@ld -n -m elf_i386 -T $(linker_script) -o $(BINTARGET) build/kernel/arch/$(ARCH)/kernel.o $(obj)
@@ -47,6 +46,7 @@ $(BINTARGET): $(obj) build/kernel/arch/$(ARCH)/kernel.o
 build/kernel/arch/$(ARCH)/kernel.o: src/kernel/arch/$(ARCH)/kernel.asm
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(@D)
+	@echo "nasm -f elf32 -o build/kernel/arch/$(ARCH)/kernel.o src/kernel/arch/$(ARCH)/kernel.asm"
 	@nasm -f elf32 -o build/kernel/arch/$(ARCH)/kernel.o src/kernel/arch/$(ARCH)/kernel.asm
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c

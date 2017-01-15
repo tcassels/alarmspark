@@ -16,8 +16,7 @@
 *with this program; if not, write to the Free Software Foundation, Inc.,
 *59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
-
-int strlen(char *str);
+#include "strlen.h"
 
 char *vidptr = (char*)0xb8000;
 int line = 0; // Used to control which line we're on
@@ -25,7 +24,7 @@ int linechar = 0;
 
 void clear_line(int l) {
     for (int c = 0; c < 160; c++) {
-        vidptr[(l*160)+(c)] = " ";
+        vidptr[(l*160)+(c)] = *" ";
         c++;
     }
 }
